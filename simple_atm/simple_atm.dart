@@ -74,12 +74,11 @@ void deposit() {
   if (amount < 1) {
     print('Gagal!');
     print('Masukkan jumlah dengan benar!');
-    menuAtm();
   } else {
     print('Berhasil setor tunai');
     atmSession.depositBalance(amount);
-    menuAtm();
   }
+  menuAtm();
 }
 
 void transfer() {
@@ -90,12 +89,15 @@ void transfer() {
   String? cardDestination = stdin.readLineSync();
 
   int indexCardDestination = checkAtmExist(cardDestination);
+  print('------------------------------');
+
   if (indexCardDestination == -1) {
     print('Nomor ATM tidak valid');
-    menuAtm();
+  } else if (atmData[indexCardDestination].cardNumber ==
+      atmSession.cardNumber) {
+    print('Tidak dapat transfer ke ATM sendiri');
   } else {
     Atm cardDestination = atmData[indexCardDestination];
-    print('------------------------------');
     print('Nomor ditemukan!');
     print('Pemilik: ${cardDestination.name}');
     print('------------------------------');
@@ -104,15 +106,18 @@ void transfer() {
     String? amountInput = stdin.readLineSync();
     int amount = amountInput == null ? 0 : int.parse(amountInput);
 
-    if (amount > atmSession.balance) {
+    if (amount < 1) {
+      print('Gagal!');
+      print('Masukkan jumlah dengan benar!');
+    } else if (amount > atmSession.balance) {
       print('Saldo tidak cukup!');
     } else {
       atmSession.transferBalance(cardDestination, amount);
       print(
           'Berhasil transfer sejumlah $amount kepada ${cardDestination.name}');
     }
-    menuAtm();
   }
+  menuAtm();
 }
 
 void withdraw() {
@@ -120,9 +125,9 @@ void withdraw() {
   String? amountInput = stdin.readLineSync();
   int amount = amountInput == null ? 0 : int.parse(amountInput);
 
-  if (amount == 0) {
+  if (amount < 1) {
+    print('Gagal!');
     print('Masukkan jumlah dengan benar');
-    menuAtm();
   } else if (amount > atmSession.balance) {
     print('Saldo tidak cukup!');
   } else {
