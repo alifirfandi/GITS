@@ -5,3 +5,7 @@ Reference : https://dribbble.com/shots/14470445-TV-Shows-Application-Movies/
 # Result
 ![screenshot-1](assets/screenshot/ss_1.png)
 ![screenshot-2](assets/screenshot/ss_2.png)
+
+# Input Form
+![screenshot-1](assets/screenshot/ss2_1.png)
+![screenshot-2](assets/screenshot/ss2_2.png)
